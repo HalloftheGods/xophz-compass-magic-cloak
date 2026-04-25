@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Category:          Wizard's Tower
  * Plugin Name:       Xophz Magic Cloak 
- * Plugin URI:        http://www.mycompassconsulting.com/
+ * Plugin URI:        https://github.com/HalloftheGods/xophz-compass-magic-cloak
  * Description:       Release this relic to help you solve problems for you and your users. 
  * Version:           26.4.24
  * Author:            Hall of the Gods, Inc.
