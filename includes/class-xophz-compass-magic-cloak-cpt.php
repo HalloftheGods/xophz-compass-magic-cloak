@@ -43,6 +43,8 @@ class Xophz_Compass_Magic_Cloak_CPT {
 	 */
 	public function register_cpt() {
 
+		add_action( 'magic_cloak_queue_direct_hint', array( $this, 'queue_direct_hint' ), 10, 2 );
+
 		$labels = array(
 			'name'                  => _x( 'Magic Cloak Hints', 'Post Type General Name', 'xophz-compass-magic-cloak' ),
 			'singular_name'         => _x( 'Magic Cloak Hint', 'Post Type Singular Name', 'xophz-compass-magic-cloak' ),
@@ -202,5 +204,41 @@ class Xophz_Compass_Magic_Cloak_CPT {
 
 	public function update_rest_meta_value( $value, $object, $field_name ) {
 		return update_post_meta( $object->ID, $field_name, $value );
+	}
+
+	/**
+	 * Queue a direct hint into the user's meta for async retrieval
+	 */
+	public function queue_direct_hint( $user_id, $payload ) {
+		$pending = get_user_meta( $user_id, '_pending_magic_cloak_hints', true );
+		if ( ! is_array( $pending ) ) {
+			$pending = array();
+		}
+		$pending[] = $payload;
+		update_user_meta( $user_id, '_pending_magic_cloak_hints', $pending );
+	}
+
+	/**
+	 * Register REST Endpoint for fetching pending hints
+	 */
+	public function register_endpoints() {
+		register_rest_route( 'magic-cloak/v1', '/pending', array(
+			'methods'             => 'GET',
+			'callback'            => array( $this, 'get_pending_hints' ),
+			'permission_callback' => function () {
+				return is_user_logged_in();
+			}
+		) );
+	}
+
+	public function get_pending_hints( $request ) {
+		$user_id = get_current_user_id();
+		$pending = get_user_meta( $user_id, '_pending_magic_cloak_hints', true );
+		if ( ! empty( $pending ) && is_array( $pending ) ) {
+			// Clear queue immediately upon retrieval
+			delete_user_meta( $user_id, '_pending_magic_cloak_hints' );
+			return rest_ensure_response( $pending );
+		}
+		return rest_ensure_response( array() );
 	}
 }
