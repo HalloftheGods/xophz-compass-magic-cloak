@@ -6,7 +6,7 @@ A modular, event-driven contextual messaging and guidance service for COMPASS.
 
 ## Description
 
-**Magic Cloak** is the platform's intelligent companion system. It delivers non-intrusive hints, tips, and system updates through premium "glass toasts" — contextual messages that appear based on the user's current location or action within the COMPASS ecosystem.
+**Magic Cloak** is the platform's intelligent companion system. It delivers non-intrusive hints, tips, and system updates through premium "glass toasts" - contextual messages that appear based on the user's current location or action within the COMPASS ecosystem.
 
 ### Core Capabilities
 
@@ -59,7 +59,7 @@ interface MagicHint {
 
 | Component | Location | Purpose |
 |---|---|---|
-| `useMagicCloak` | `src/mechanics/useMagicCloak.ts` | Composable — checks activation, listens for events, dispatches toasts |
+| `useMagicCloak` | `src/mechanics/useMagicCloak.ts` | Composable - checks activation, listens for events, dispatches toasts |
 | `x-snackbar` | `src/components/atoms/` | Glassmorphic toast UI primitive |
 
 ## Changelog
