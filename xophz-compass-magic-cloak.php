@@ -54,8 +54,7 @@ function activate_xophz_compass_magic_cloak() {
  * This action is documented in includes/class-xophz-compass-magic-cloak-deactivator.php
  */
 function deactivate_xophz_compass_magic_cloak() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-xophz-compass-magic-cloak-deactivator.php';
-	Xophz_Compass_Magic_Cloak_Deactivator::deactivate();
+	Xophz_Compass_Magic_Cloak::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_xophz_compass_magic_cloak' );
